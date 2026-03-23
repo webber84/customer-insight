@@ -1,0 +1,13 @@
+卡片名称,价值描述
+ClientBasicInfoCard,展示客户核心属性与业务接入状态，快速建立基础认知。
+CorporateBasicInfoCard,结构化呈现战略与经营现状，辅助判断长期价值。
+ClientDynamicsCard,追踪舆情与战略变更，捕捉稍纵即逝的商业机会。
+OrgChartCard,可视化决策链与人际关系，助力精准攻克决策人。
+VisitHistoryCard,记录拜访细节与遗留问题，保障销售动作连续性。
+FinancialPerformanceCard,监控预算执行率与消耗趋势，预警并挖掘增量预算。
+AppMatrixCard,盘点产品矩阵及营收，识别高潜合作产品。
+AppHeroCard,定义App基础属性与合作范围，明确合作边界。
+AppIntelligenceCard,聚合更新与动态，AI分析产品发展方向。
+PlatformMatrixCard,对比全网分发数据，评估我方市场份额地位。
+DistributionPanoramaCard,分析分发占比趋势，量化渠道流量贡献度。
+QualityMonitoringCard,监测留存卸载指标，证明高质量用户价值。
