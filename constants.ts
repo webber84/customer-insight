@@ -403,6 +403,20 @@ export const MOCK_APP_CKB: AppCKBProfile = {
         ourValue: '12.4 分钟',
         progress: { ourValue: 12.4, networkAverage: 9.8, networkMax: 18 },
         trendData: generateMetricTrend(12, 2)
+      },
+      {
+        id: 'new_install_active_rate',
+        label: '新安装活跃转化率',
+        ourValue: '68.5%',
+        progress: { ourValue: 68.5, networkAverage: 55.0, networkMax: 85.0 },
+        trendData: generateMetricTrend(65, 5)
+      },
+      {
+        id: 'new_install_uninstall_rate',
+        label: '新安装卸载转化率',
+        ourValue: '12.3%',
+        progress: { ourValue: 12.3, networkAverage: 18.5, networkMax: 30.0 },
+        trendData: generateMetricTrend(15, 3)
       }
     ]
   },
@@ -452,11 +466,18 @@ export const MOCK_APP_CKB: AppCKBProfile = {
     },
     versionCoverage: {
       latestVersionCoverage: 86,
+      latestVersionUsers: '1,250万',
       adoptionCurve: generateSCurve(),
+      penetrationMilestones: [
+        { target: '50%', days: 5 },
+        { target: '80%', days: 8 },
+        { target: '95%', days: 14 }
+      ],
       versionCohort: [
-        { label: '最新版 (v6.9.5)', percentage: 86, colorClass: 'bg-indigo-500' },
-        { label: '次新版 (v6.9.4)', percentage: 10, colorClass: 'bg-indigo-300' },
-        { label: '极老版本', percentage: 4, colorClass: 'bg-slate-200' }
+        { label: 'v6.9.5 (最新)', percentage: 65, users: '945万', colorClass: 'bg-indigo-500', color: '#6366f1' },
+        { label: 'v6.9.4', percentage: 20, users: '290万', colorClass: 'bg-indigo-400', color: '#818cf8' },
+        { label: 'v6.9.3', percentage: 10, users: '145万', colorClass: 'bg-indigo-300', color: '#a5b4fc' },
+        { label: '其它', percentage: 5, users: '73万', colorClass: 'bg-slate-200', color: '#e2e8f0' }
       ]
     },
     timeline: [

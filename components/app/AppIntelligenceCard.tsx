@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Newspaper, CalendarDays, ExternalLink, Globe, BrainCircuit, Zap } from 'lucide-react';
+import { Newspaper, CalendarDays, ExternalLink, Globe, Sparkles } from 'lucide-react';
 
 interface AppIntelligenceCardProps {
   dynamics: { 
@@ -33,14 +33,21 @@ export const AppIntelligenceCard: React.FC<AppIntelligenceCardProps> = ({ dynami
       
       <div className="space-y-6">
         {/* AI Insight Box */}
-        <div className="bg-slate-950 p-6 rounded border border-slate-800 text-white relative text-left">
-          <div className="absolute top-0 right-0 p-4 opacity-10"><Zap size={40}/></div>
-          <h4 className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-            <BrainCircuit size={14}/> AI 战略分析结论
-          </h4>
-          <p className="text-sm font-bold leading-relaxed italic border-l-2 border-blue-600 pl-4">
-            "该客户重心在于 AI 赋能金融，建议重点推荐高净值人群定向广告位。"
-          </p>
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-6 shadow-sm relative overflow-hidden mb-6">
+          <div className="absolute top-0 right-0 p-6 opacity-5">
+            <Sparkles size={120} />
+          </div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="bg-blue-600 text-white p-1.5 rounded shadow-sm">
+                <Sparkles size={16} />
+              </div>
+              <h4 className="text-sm font-black text-blue-800 uppercase tracking-widest">AI智能总结</h4>
+            </div>
+            <p className="text-sm font-bold text-slate-700 leading-relaxed">
+              "该客户重心在于 AI 赋能金融，建议重点推荐高净值人群定向广告位。"
+            </p>
+          </div>
         </div>
 
         {/* Dynamics List */}

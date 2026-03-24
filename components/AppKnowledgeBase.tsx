@@ -5,11 +5,10 @@ import { AppCKBProfile } from '../types';
 
 // 导入拆分后的原子组件
 import { AppHeroCard } from './app/AppHeroCard';
+import { AppKeyDynamicsCard } from './app/AppKeyDynamicsCard';
 import { AppIntelligenceCard } from './app/AppIntelligenceCard';
-import { AppDownloadAnalysisCard } from './app/AppDownloadAnalysisCard';
+import { AppDomainFunnelCard } from './app/AppDomainFunnelCard';
 import { PlatformMatrixCard } from './app/PlatformMatrixCard';
-import { AppRetentionTrendCard } from './app/AppRetentionTrendCard';
-import { AppUninstallTrendCard } from './app/AppUninstallTrendCard';
 import { AppUpdateDynamicsCard } from './app/AppUpdateDynamicsCard';
 import { HarmonyOSMonitorCard } from './app/HarmonyOSMonitorCard';
 
@@ -56,26 +55,23 @@ export const AppKnowledgeBase: React.FC<AppCKBProps> = ({ app: initialApp, onBac
         {/* App 英雄卡片 - 基础信息 (支持编辑) */}
         <AppHeroCard app={app} onAppUpdate={setApp} />
 
-        {/* 1. 实时动态 */}
-        <AppIntelligenceCard dynamics={MOCK_DYNAMICS} />
+        {/* 关键动态 */}
+        <AppKeyDynamicsCard />
+
+        {/* 华为设备近30天分发表现 */}
+        <AppDomainFunnelCard />
+
+        {/* 全设备厂商分发表现 */}
+        <PlatformMatrixCard data={app.platformPerformance} />
 
         {/* App 更新动态 */}
         <AppUpdateDynamicsCard data={app.updateDynamics} />
 
-        {/* 2. 全平台分发表现 */}
-        <PlatformMatrixCard data={app.platformPerformance} />
-
-        {/* 3. 应用新安装分析 */}
-        <AppDownloadAnalysisCard data={app.downloadAnalysis} />
-
-        {/* 4. 应用留存趋势 */}
-        <AppRetentionTrendCard health={app.health} />
-
-        {/* 5. 应用卸载趋势 */}
-        <AppUninstallTrendCard health={app.health} />
-
-        {/* 6. HarmonyOS SDK 接入监控 */}
+        {/* HarmonyOS SDK 接入监控 */}
         <HarmonyOSMonitorCard kits={app.harmonyOSKits} />
+
+        {/* 实时动态 */}
+        <AppIntelligenceCard dynamics={MOCK_DYNAMICS} />
       </div>
       
       <div className="p-10 text-center text-slate-300 font-black uppercase text-[10px] tracking-widest">

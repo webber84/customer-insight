@@ -87,8 +87,10 @@ export interface AppUpdateDynamicsData {
   };
   versionCoverage: {
     latestVersionCoverage: number;
+    latestVersionUsers: string;
     adoptionCurve: { day: string; coverage: number }[];
-    versionCohort: { label: string; percentage: number; colorClass: string }[];
+    penetrationMilestones: { target: string; days: number }[];
+    versionCohort: { label: string; percentage: number; users: string; colorClass: string; color?: string }[];
   };
   timeline: AppVersionNode[];
 }

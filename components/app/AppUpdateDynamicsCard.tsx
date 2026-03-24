@@ -20,7 +20,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { AppUpdateDynamicsData, AppVersionNode } from '../../types';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, ReferenceLine, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, ReferenceLine, CartesianGrid, PieChart, Pie, Cell, Legend } from 'recharts';
 
 interface AppUpdateDynamicsCardProps {
   data: AppUpdateDynamicsData;
@@ -74,9 +74,22 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
   return (
     <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
       {/* Title */}
-      <div className="p-6 border-b border-slate-200 flex items-center gap-2">
-        <Code size={18} className="text-slate-700" />
-        <h3 className="text-base font-bold text-slate-900">版本更新动态</h3>
+      <div className="p-6 border-b border-slate-200">
+        <div className="flex items-center gap-2 mb-4">
+          <Code size={18} className="text-slate-700" />
+          <h3 className="text-base font-bold text-slate-900">版本更新动态</h3>
+        </div>
+        
+        {/* AI Trend Summary */}
+        <div className="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100/50 flex gap-3">
+          <Sparkles className="text-indigo-500 shrink-0 mt-0.5" size={16} />
+          <div>
+            <div className="text-xs font-bold text-indigo-900 mb-1">AI智能总结</div>
+            <div className="text-sm text-indigo-700/80 leading-relaxed">
+              {data.aiTrendSummary}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="p-6 border-b border-slate-200">
@@ -86,7 +99,7 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
           <div className="w-1/3">
             <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
               <Clock size={16} className="text-slate-400" />
-              平均更新周期
+              近24个月平均更新周期
             </h4>
             <div className="flex items-end gap-2 mb-2">
               <span className="text-4xl font-black text-slate-900">{data.updateTrend.avgUpdateCycleDays}</span>
@@ -103,15 +116,15 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
           
           {/* Right: 24 Months Bar Chart */}
           <div className="w-2/3 h-48">
-            <h4 className="text-xs font-bold text-slate-500 mb-2 flex items-center gap-1.5">
-              <Activity size={14} />
+            <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
+              <Activity size={16} className="text-slate-400" />
               近 24 个月发版频次
             </h4>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data.updateTrend.monthlyReleases} margin={{ top: 10, right: 20, left: -20, bottom: 15 }}>
+              <BarChart data={data.updateTrend.monthlyReleases} margin={{ top: 20, right: 20, left: -20, bottom: 15 }}>
                 <CartesianGrid vertical={false} stroke="#e2e8f0" strokeDasharray="3 3" />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#94a3b8'}} label={{ value: '月份', position: 'insideBottomRight', offset: -10, fontSize: 10, fill: '#94a3b8' }} />
-                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#94a3b8'}} label={{ value: '更新次数', angle: -90, position: 'insideLeft', offset: 10, fontSize: 10, fill: '#94a3b8' }} />
+                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#94a3b8'}} label={{ value: '次数', position: 'top', offset: 10, fontSize: 10, fill: '#94a3b8' }} />
                 <Tooltip 
                   cursor={{fill: '#f1f5f9'}} 
                   contentStyle={{borderRadius: '8px', fontSize: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
@@ -125,73 +138,94 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
         </div>
 
         {/* Coverage Section */}
-        <div className="flex gap-8">
-          {/* Left: Coverage & Cohort */}
-          <div className="w-1/3 flex flex-col justify-between">
-            <div>
-              <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
-                <Smartphone size={16} className="text-slate-400" />
-                最新版本用户覆盖率
-              </h4>
-              <div className="flex items-end gap-2 mb-2">
-                <span className="text-4xl font-black text-indigo-600">{data.versionCoverage.latestVersionCoverage}%</span>
-              </div>
+        <div className="flex gap-6">
+          {/* Left: Coverage */}
+          <div className="w-1/3">
+            <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
+              <Smartphone size={16} className="text-slate-400" />
+              最新版本用户覆盖率
+            </h4>
+            <div className="flex items-end gap-3 mb-2">
+              <span className="text-4xl font-black text-indigo-600">{data.versionCoverage.latestVersionCoverage}%</span>
+              <span className="text-sm font-bold text-slate-500 mb-1.5">{data.versionCoverage.latestVersionUsers}</span>
             </div>
-            
-            {/* Cohort */}
-            <div className="mt-6">
-              <h4 className="text-xs font-bold text-slate-500 mb-3">新老版本交替流 (当前活跃用户)</h4>
-              <div className="flex h-3 rounded-full overflow-hidden mb-3">
-                {data.versionCoverage.versionCohort.map((c, i) => (
-                  <div key={i} style={{width: `${c.percentage}%`}} className={c.colorClass} />
-                ))}
-              </div>
-              <div className="flex flex-col gap-2 text-[10px] text-slate-500">
-                {data.versionCoverage.versionCohort.map((c, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <div className={`w-2 h-2 rounded-sm ${c.colorClass}`} />
-                      <span className="font-medium">{c.label}</span>
-                    </div>
-                    <span className="font-bold text-slate-700">{c.percentage}%</span>
-                  </div>
-                ))}
-              </div>
+          </div>
+          
+          {/* Middle: Cohort */}
+          <div className="w-1/3">
+            <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
+              <Layers size={16} className="text-slate-400" />
+              各版本用户分布 (当前活跃)
+            </h4>
+            <div className="h-36">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={data.versionCoverage.versionCohort}
+                    cx="40%"
+                    cy="50%"
+                    innerRadius={25}
+                    outerRadius={45}
+                    paddingAngle={2}
+                    dataKey="percentage"
+                    nameKey="label"
+                    label={({ cx, cy, midAngle, outerRadius, value, payload }) => {
+                      const RADIAN = Math.PI / 180;
+                      const radius = outerRadius + 12;
+                      const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                      return (
+                        <text 
+                          x={x} 
+                          y={y} 
+                          fill="#64748b" 
+                          textAnchor={x > cx ? 'start' : 'end'} 
+                          dominantBaseline="central" 
+                        >
+                          <tspan x={x} dy="-0.3em" fontSize={10} fontWeight="bold">{value}%</tspan>
+                          <tspan x={x} dy="1.2em" fontSize={9} fill="#94a3b8">{payload.users}</tspan>
+                        </text>
+                      );
+                    }}
+                    labelLine={false}
+                  >
+                    {data.versionCoverage.versionCohort.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color || '#cbd5e1'} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    formatter={(value: number) => [`${value}%`, '占比']}
+                    contentStyle={{borderRadius: '8px', fontSize: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
+                  />
+                  <Legend 
+                    layout="vertical" 
+                    verticalAlign="middle" 
+                    align="right"
+                    iconType="circle"
+                    wrapperStyle={{ fontSize: '10px' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
-          {/* Right: S-Curve */}
-          <div className="w-2/3 h-48">
-            <h4 className="text-xs font-bold text-slate-500 mb-2 flex items-center gap-1.5">
-              <TrendingUp size={14} />
-              渗透曲线
+          {/* Right: Penetration Duration Table */}
+          <div className="w-1/3">
+            <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
+              <TrendingUp size={16} className="text-slate-400" />
+              最新版本渗透时长
             </h4>
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data.versionCoverage.adoptionCurve} margin={{ top: 10, right: 30, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorCoverage" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#94a3b8'}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#94a3b8'}} domain={[0, 100]} />
-                <CartesianGrid vertical={false} stroke="#e2e8f0" strokeDasharray="3 3" />
-                <Tooltip 
-                  contentStyle={{borderRadius: '8px', fontSize: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
-                />
-                
-                {/* 50% Milestone */}
-                <ReferenceLine y={50} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: '50% 达成', fill: '#64748b', fontSize: 10 }} />
-                <ReferenceLine segment={[{ x: 'Day 5', y: 50 }, { x: 'Day 5', y: 0 }]} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'bottom', value: '5天', fill: '#64748b', fontSize: 10 }} />
-                
-                {/* 80% Milestone */}
-                <ReferenceLine y={80} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: '80% 达成', fill: '#64748b', fontSize: 10 }} />
-                <ReferenceLine segment={[{ x: 'Day 8', y: 80 }, { x: 'Day 8', y: 0 }]} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'bottom', value: '8天', fill: '#64748b', fontSize: 10 }} />
-                
-                <Area type="monotone" dataKey="coverage" stroke="#4f46e5" strokeWidth={3} fillOpacity={1} fill="url(#colorCoverage)" />
-              </AreaChart>
-            </ResponsiveContainer>
+            <div className="flex flex-col gap-3">
+              {data.versionCoverage.penetrationMilestones.map((milestone, idx) => (
+                <div key={idx} className="flex items-center justify-between px-4 py-2.5 bg-slate-50 rounded-xl border border-slate-100">
+                  <span className="text-sm font-bold text-slate-600">达成 {milestone.target}</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xl font-black text-slate-800">{milestone.days}</span>
+                    <span className="text-xs font-medium text-slate-500">天</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -199,20 +233,9 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
       {/* 区域 C：版本变迁时间轴 */}
       <div className="p-6 bg-slate-50/30">
         <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2">
             <Calendar size={18} className="text-slate-700" />
             <h3 className="text-base font-bold text-slate-900">近 24 个月版本更新列表</h3>
-          </div>
-          
-          {/* AI Trend Summary */}
-          <div className="p-4 bg-indigo-50/50 rounded-xl border border-indigo-100/50 flex gap-3">
-            <Sparkles className="text-indigo-500 shrink-0 mt-0.5" size={16} />
-            <div>
-              <div className="text-xs font-bold text-indigo-900 mb-1">更新趋势总结</div>
-              <div className="text-sm text-indigo-700/80 leading-relaxed">
-                {data.aiTrendSummary}
-              </div>
-            </div>
           </div>
         </div>
         
