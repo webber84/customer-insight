@@ -76,29 +76,10 @@ export const ClientSearch: React.FC<ClientSearchProps> = ({ onSelectClient }) =>
                   onClick={() => onSelectClient(client.id)}
                   className="w-full text-left px-6 py-4 hover:bg-slate-50 transition-colors flex items-center justify-between group"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 overflow-hidden">
-                      {client.logo ? (
-                        <img src={client.logo} alt={client.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                      ) : (
-                        <Users size={24} />
-                      )}
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                        {client.name}
-                      </h4>
-                      <div className="flex items-center gap-3 text-sm text-slate-500">
-                        <span className={`px-2 py-0.5 rounded text-xs font-bold ${client.stage === ClientStage.ACTIVE ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-700'}`}>
-                          {client.stage === ClientStage.ACTIVE ? '活跃' : '常规'}
-                        </span>
-                        <span>{client.industry}</span>
-                        <span>{client.corporateEntity}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-blue-100 group-hover:text-blue-600 transition-colors">
-                    <ChevronRight size={16} />
+                  <div className="flex items-center">
+                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      {client.name}
+                    </h4>
                   </div>
                 </button>
               ))}
