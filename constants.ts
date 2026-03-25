@@ -457,9 +457,71 @@ export const MOCK_APP_CKB: AppCKBProfile = {
       dailyData: generateUninstallData(12000, 3000)
     }
   },
+  userAnalysis: {
+    aiSummary: "该应用用户规模庞大且粘性极高（DAU/MAU达42%），高频活跃用户占比超过四成，显示出极强的用户忠诚度。用户画像偏向一二线城市、中高消费能力的中青年群体，且高价值终端用户占比较大，具备极高的商业化变现潜力。",
+    scaleMetrics: {
+      installedUsers: "1.2亿",
+      avgDau30d: "1,850万",
+      mau30d: "4,380万",
+      stickiness: "42.2%",
+      avgDailyUsageTime: "32分钟",
+      avgDailyUsageCount: "4.5次"
+    },
+    health: [
+      { label: "高频活跃", value: 45, users: "832万", color: "#3b82f6", tip: "在近 30 天内，累计启动天数 ≥ 10 天" },
+      { label: "常规活跃", value: 30, users: "555万", color: "#10b981", tip: "在近 30 天内，累计启动天数 1 ~ 9 天，且最近 14 天内有过启动" },
+      { label: "沉睡边缘", value: 15, users: "277万", color: "#f59e0b", tip: "最近 15 天 ~ 30 天内0启动" },
+      { label: "长尾流失", value: 10, users: "185万", color: "#ef4444", tip: "距今已超过30天0启动" }
+    ],
+    persona: {
+      deviceValue: [
+        { label: "高价值", value: 40, color: "#8b5cf6" },
+        { label: "中价值", value: 45, color: "#a78bfa" },
+        { label: "低价值", value: 15, color: "#c4b5fd" }
+      ],
+      cityTier: [
+        { label: "一线", value: 35, color: "#0ea5e9" },
+        { label: "二线", value: 40, color: "#38bdf8" },
+        { label: "三线", value: 15, color: "#7dd3fc" },
+        { label: "四线及以下", value: 10, color: "#bae6fd" }
+      ],
+      age: [
+        { label: "18-24岁", value: 25, color: "#f43f5e" },
+        { label: "25-34岁", value: 45, color: "#fb7185" },
+        { label: "35-44岁", value: 20, color: "#fda4af" },
+        { label: "45岁以上", value: 10, color: "#fecdd3" }
+      ],
+      spendingPower: [
+        { label: "高消费", value: 30, color: "#14b8a6" },
+        { label: "中消费", value: 50, color: "#2dd4bf" },
+        { label: "低消费", value: 20, color: "#5eead4" }
+      ]
+    }
+  },
+  distributionOverview: {
+    aiSummary: "站内分发效率极高，从曝光到下载的转化率达到12.5%，远超行业平均水平。算法推荐是最大的流量来源，占比达45%，说明该应用在应用商店的推荐算法中权重较高。主动搜索占比30%，体现了较强的品牌影响力和用户主动获取意愿。",
+    funnel: {
+      impressions: "2,400万",
+      downloads: "300万",
+      installs: "285万",
+      activations: "270万",
+      conversionRates: {
+        impressionToDownload: "12.5%",
+        downloadToInstall: "95.0%",
+        installToActivation: "94.7%"
+      }
+    },
+    trafficSources: [
+      { label: "算法推荐", percentage: 45, value: "135万", color: "#8b5cf6" },
+      { label: "主动搜索", percentage: 30, value: "90万", color: "#3b82f6" },
+      { label: "编辑推荐", percentage: 15, value: "45万", color: "#10b981" },
+      { label: "推广下载", percentage: 10, value: "30万", color: "#f59e0b" }
+    ]
+  },
   updateDynamics: {
     aiTrendSummary: "近24个月内，该应用保持了高频的迭代节奏，平均每两周发布一次新版本。更新重心从早期的基础功能完善（如支付、账户系统），逐渐向智能化和生态融合转移（如接入大模型客服、鸿蒙原生适配）。近期热修复版本显著减少，表明整体架构稳定性有较大提升。",
     updateTrend: {
+      totalVersions: 128,
       avgUpdateCycleDays: 14,
       categoryMedianDays: 21,
       monthlyReleases: generate24Months()

@@ -95,22 +95,37 @@ export const AppUpdateDynamicsCard: React.FC<AppUpdateDynamicsCardProps> = ({
       <div className="p-6 border-b border-slate-200">
         {/* Trend Section */}
         <div className="flex gap-8 mb-8 pb-8 border-b border-slate-100">
-          {/* Left: Avg Cycle */}
-          <div className="w-1/3">
-            <h4 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-1.5">
-              <Clock size={16} className="text-slate-400" />
-              近24个月平均更新周期
-            </h4>
-            <div className="flex items-end gap-2 mb-2">
-              <span className="text-4xl font-black text-slate-900">{data.updateTrend.avgUpdateCycleDays}</span>
-              <span className="text-sm font-medium text-slate-500 mb-1">天/次</span>
+          {/* Left: Metrics */}
+          <div className="w-1/3 flex flex-col gap-6">
+            {/* Total Versions */}
+            <div>
+              <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+                <Package size={16} className="text-slate-400" />
+                上架以来版本更新总数
+              </h4>
+              <div className="flex items-end gap-2">
+                <span className="text-4xl font-black text-slate-900">{data.updateTrend.totalVersions}</span>
+                <span className="text-sm font-medium text-slate-500 mb-1">次</span>
+              </div>
             </div>
-            <div className="text-xs text-slate-500 flex items-center gap-1 mt-3">
-              同品类中位值 {data.updateTrend.categoryMedianDays} 天
-              {data.updateTrend.avgUpdateCycleDays < data.updateTrend.categoryMedianDays ?
-                <span className="text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded font-bold border border-emerald-100 ml-1">
-                  快 {Math.round((data.updateTrend.categoryMedianDays - data.updateTrend.avgUpdateCycleDays) / data.updateTrend.categoryMedianDays * 100)}%
-                </span> : null}
+
+            {/* Avg Cycle */}
+            <div>
+              <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+                <Clock size={16} className="text-slate-400" />
+                近24个月平均更新周期
+              </h4>
+              <div className="flex items-end gap-2 mb-2">
+                <span className="text-4xl font-black text-slate-900">{data.updateTrend.avgUpdateCycleDays}</span>
+                <span className="text-sm font-medium text-slate-500 mb-1">天/次</span>
+              </div>
+              <div className="text-xs text-slate-500 flex items-center gap-1 mt-2">
+                同品类中位值 {data.updateTrend.categoryMedianDays} 天
+                {data.updateTrend.avgUpdateCycleDays < data.updateTrend.categoryMedianDays ?
+                  <span className="text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded font-bold border border-emerald-100 ml-1">
+                    快 {Math.round((data.updateTrend.categoryMedianDays - data.updateTrend.avgUpdateCycleDays) / data.updateTrend.categoryMedianDays * 100)}%
+                  </span> : null}
+              </div>
             </div>
           </div>
           

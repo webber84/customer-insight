@@ -40,8 +40,6 @@ const generate30DaysData = (base: number, variance: number) => {
 };
 
 const METRICS_DATA = [
-  { id: 'impression', label: '日均曝光', value: '1,250.4 万', icon: <Eye size={14} />, color: '#3b82f6', data: generate30DaysData(1200, 100) },
-  { id: 'download', label: '日均下载', value: '345.2 万', icon: <Download size={14} />, color: '#8b5cf6', data: generate30DaysData(340, 30) },
   { id: 'install', label: '日均安装', value: '298.5 万', icon: <Smartphone size={14} />, color: '#10b981', data: generate30DaysData(290, 20) },
   { id: 'activation', label: '日均激活', value: '185.6 万', icon: <UserCheck size={14} />, color: '#f59e0b', data: generate30DaysData(180, 15) },
   { id: 'retention', label: '日均次日留存', value: '112.4 万', icon: <Clock size={14} />, color: '#06b6d4', data: generate30DaysData(110, 10) },
@@ -107,7 +105,7 @@ export const AppDomainFunnelCard: React.FC = () => {
       <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
         <div className="flex items-center gap-2">
           <Filter size={18} className="text-slate-700" />
-          <h3 className="text-base font-bold text-slate-900">华为设备近30天分发表现</h3>
+          <h3 className="text-base font-bold text-slate-900">近30天华为设备分发表现</h3>
         </div>
       </div>
       
@@ -131,7 +129,7 @@ export const AppDomainFunnelCard: React.FC = () => {
         </div>
 
         {/* 1. 区域 A：近30日分发表现 (柱状图) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {METRICS_DATA.map(metric => (
             <div key={metric.id} className="bg-slate-50 rounded-xl p-4 border border-slate-100">
               <div className="flex items-center justify-between mb-2">

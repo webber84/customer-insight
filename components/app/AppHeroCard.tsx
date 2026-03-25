@@ -31,8 +31,8 @@ export const AppHeroCard: React.FC<AppHeroCardProps> = ({ app, onAppUpdate }) =>
 
   const cooperationConfig = [
     { label: '应用推广', key: 'promotion' },
-    { label: '预装合作', key: 'preinstall' },
-    { label: '推送', key: 'push' },
+    { label: '预装', key: 'preinstall' },
+    { label: '商业化Push', key: 'push' },
     { label: '联运', key: 'joint' }
   ] as const;
 
@@ -70,21 +70,21 @@ export const AppHeroCard: React.FC<AppHeroCardProps> = ({ app, onAppUpdate }) =>
         </div>
         <div className="flex-1 space-y-4 w-full">
           <div>
-            <h1 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-4">{app.name}</h1>
+            <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tighter mb-4">{app.name}</h1>
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-100 rounded">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">上架时间:</span>
-                <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{app.firstReleaseDate}</span>
+                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">首次上架时间:</span>
+                <span className="text-xs font-black text-slate-900 uppercase tracking-widest">{app.firstReleaseDate}</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-100 rounded">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">类型:</span>
-                <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{app.categories.primary}</span>
+                <span className="text-xs font-black text-slate-400 uppercase tracking-widest">类型:</span>
+                <span className="text-xs font-black text-slate-900 uppercase tracking-widest">{app.categories.primary} / {app.categories.secondary}</span>
               </div>
               
               <div className="hidden lg:block w-px h-6 bg-slate-200 mx-2"></div>
 
               <div className="flex items-center gap-3">
-                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">合作业务:</span>
+                 <span className="text-xs font-black text-slate-400 uppercase tracking-widest">合作业务:</span>
                  <div className="flex flex-wrap gap-2">
                   {cooperationConfig.map((item) => {
                     const isActive = isEditing ? editCooperation[item.key] : app.cooperation[item.key];
@@ -94,7 +94,7 @@ export const AppHeroCard: React.FC<AppHeroCardProps> = ({ app, onAppUpdate }) =>
                             <button
                             key={item.key}
                             onClick={() => toggleCooperation(item.key)}
-                            className={`px-3 py-1.5 rounded text-[9px] font-black uppercase tracking-widest border transition-all ${
+                            className={`px-3 py-1.5 rounded text-[10px] font-black uppercase tracking-widest border transition-all ${
                                 isActive 
                                 ? 'bg-blue-600 text-white border-blue-600' 
                                 : 'bg-slate-50 text-slate-400 border-slate-200 hover:border-slate-300'
@@ -106,8 +106,8 @@ export const AppHeroCard: React.FC<AppHeroCardProps> = ({ app, onAppUpdate }) =>
                     }
 
                     return (
-                      <div key={item.key} className={`px-3 py-1.5 rounded text-[9px] font-black uppercase tracking-widest border flex items-center gap-1.5 ${isActive ? 'bg-slate-900 text-white border-slate-950' : 'bg-slate-50 text-slate-300 border-slate-100 grayscale opacity-60'}`}>
-                        {isActive ? <CheckCircle2 size={10} /> : <XCircle size={10} />}
+                      <div key={item.key} className={`px-3 py-1.5 rounded text-[10px] font-black uppercase tracking-widest border flex items-center gap-1.5 ${isActive ? 'bg-slate-900 text-white border-slate-950' : 'bg-slate-50 text-slate-300 border-slate-100 grayscale opacity-60'}`}>
+                        {isActive ? <CheckCircle2 size={12} /> : <XCircle size={12} />}
                         {item.label}
                       </div>
                     );

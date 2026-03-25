@@ -6,6 +6,8 @@ import { AppCKBProfile } from '../types';
 // 导入拆分后的原子组件
 import { AppHeroCard } from './app/AppHeroCard';
 import { AppKeyDynamicsCard } from './app/AppKeyDynamicsCard';
+import { AppUserAnalysisCard } from './app/AppUserAnalysisCard';
+import { AppDistributionOverviewCard } from './app/AppDistributionOverviewCard';
 import { AppIntelligenceCard } from './app/AppIntelligenceCard';
 import { AppDomainFunnelCard } from './app/AppDomainFunnelCard';
 import { PlatformMatrixCard } from './app/PlatformMatrixCard';
@@ -57,6 +59,12 @@ export const AppKnowledgeBase: React.FC<AppCKBProps> = ({ app: initialApp, onBac
 
         {/* 关键动态 */}
         <AppKeyDynamicsCard />
+
+        {/* 用户分析 */}
+        <AppUserAnalysisCard data={app.userAnalysis} />
+
+        {/* 站内分发概览 */}
+        <AppDistributionOverviewCard data={app.distributionOverview} />
 
         {/* 华为设备近30天分发表现 */}
         <AppDomainFunnelCard />

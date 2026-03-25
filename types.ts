@@ -81,6 +81,7 @@ export interface AppVersionNode {
 export interface AppUpdateDynamicsData {
   aiTrendSummary: string;
   updateTrend: {
+    totalVersions: number;
     avgUpdateCycleDays: number;
     categoryMedianDays: number;
     monthlyReleases: { month: string; count: number }[];
@@ -135,6 +136,52 @@ export interface HarmonyOSKit {
   dailyData: { date: string; calls: number }[];
 }
 
+export interface UserAnalysisData {
+  aiSummary: string;
+  scaleMetrics: {
+    installedUsers: string;
+    avgDau30d: string;
+    mau30d: string;
+    stickiness: string;
+    avgDailyUsageTime: string;
+    avgDailyUsageCount: string;
+  };
+  health: {
+    label: string;
+    value: number;
+    users: string;
+    color: string;
+    tip: string;
+  }[];
+  persona: {
+    deviceValue: { label: string; value: number; color: string }[];
+    cityTier: { label: string; value: number; color: string }[];
+    age: { label: string; value: number; color: string }[];
+    spendingPower: { label: string; value: number; color: string }[];
+  };
+}
+
+export interface DistributionOverviewData {
+  aiSummary: string;
+  funnel: {
+    impressions: string;
+    downloads: string;
+    installs: string;
+    activations: string;
+    conversionRates: {
+      impressionToDownload: string;
+      downloadToInstall: string;
+      installToActivation: string;
+    }
+  };
+  trafficSources: {
+    label: string;
+    percentage: number;
+    value: string;
+    color: string;
+  }[];
+}
+
 export interface AppCKBProfile {
   id: string;
   name: string;
@@ -174,6 +221,8 @@ export interface AppCKBProfile {
       dailyData: { date: string; uninstalls: number }[];
     };
   };
+  userAnalysis: UserAnalysisData;
+  distributionOverview: DistributionOverviewData;
   updateDynamics: AppUpdateDynamicsData;
   harmonyOSKits?: HarmonyOSKit[];
 }
